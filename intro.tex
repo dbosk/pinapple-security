@@ -1,0 +1,59 @@
+\section{What do we want to achieve?}
+
+We want Alice to be able to store her passwords.
+We want her to store identifier and password pairs in a database, e.g.\ the 
+credit card identifier and its PIN-code or a username and its password.
+Then Alice can later retrieve the password when needed, without risk of 
+forgetting it.
+Without diving into the details, we secure this database by encrypting all 
+entries under a master password.
+
+We will first cover the adversary's capabilities (\cref{AdversaryModel}) and 
+with the adversary in mind state our required properties 
+(\cref{RequiredProperties}).
+Then we will outline our design and prove it secure (\cref{Design}).
+
+\subsection{Who is our adversary?}
+\label{AdversaryModel}
+
+Our adversary, Eve, wants to learn Alice's stored passwords.
+We assume that Eve has online access to the encrypted database of identifier 
+and password pairs.
+She can also force Alice to provide her with a master password.
+More formally, Eve has access to the ciphertext, she can observe updates to the
+ciphertext and she can request decryption keys.
+
+We will give two examples of how Eve practically can achieve these 
+capabilities.
+First, she can be an authority who has Alice's phone in possession and can 
+compel Alice to give up her master password.
+Second, Eve could trick Alice to install a malicious app that can access the 
+database in secondary storage.
+This means that Eve also has online access to the database, or she has at least
+the possibility to access it at several points in time to detect changes.
+
+\subsection{What properties do we want?}
+\label{RequiredProperties}
+
+\subsubsection{Confidentiality}
+
+Eve wants to learn as much as possible about Alice's passwords.
+We have already suggested that we need confidentiality by stating that the 
+password database is encrypted.
+
+What level of confidentiality to we need, \ac{IND-CCA}?
+
+\subsubsection{Deniability}
+
+We want Alice to be able to give Eve a wrong master password while Eve has no 
+way of verifying that the master password is wrong.
+
+We want the passwords to maintain their lengths, or more generally, we want the 
+passwords to maintain their password policy.
+
+\subsubsection{Verifiability and integrity}
+
+Alice should be able to verify that the master password is correct without 
+preventing deniability, i.e.\ leaking any information about the correctness of 
+the master password.
+She wants this feature to detect if she entered the master password wrongly.
