@@ -20,7 +20,7 @@ Our adversary, Eve, wants to learn Alice's stored passwords.
 We assume that Eve has online access to the encrypted database of identifier 
 and password pairs.
 She can also force Alice to provide her with a master password.
-More formally, Eve has access to the ciphertext, she can observe updates to the
+I.e.\ Eve has access to the ciphertext, she can observe updates to the
 ciphertext and she can request decryption keys.
 
 We will give two examples of how Eve practically can achieve these 
@@ -35,13 +35,39 @@ the possibility to access it at several points in time to detect changes.
 \subsection{What properties do we want?}
 \label{RequiredProperties}
 
+We will now elaborate a bit on what Eve can do and define more clearly the 
+properties we want from the system.
+
 \subsubsection{Confidentiality}
 
 Eve wants to learn as much as possible about Alice's passwords.
 We have already suggested that we need confidentiality by stating that the 
 password database is encrypted.
+However, there are several levels of security for the encryption system.
 
-What level of confidentiality to we need, \ac{IND-CCA}?
+Considering Eve, she could trick Alice into registering with a service under 
+Eve's control.
+Thus Eve will know, and she can possibly even choose, the plaintext, so we need 
+at least \ac{IND-CPA}.
+She can also access the database and might be able to change the ciphertext for
+Alice's code to Eve's service, thus Eve can also choose ciphertexts.
+So we actually need \ac{IND-CCA}.
+
+\begin{definition}[\acs{IND-CCA}]
+  \dots
+\end{definition}
+
+\subsubsection{Unlinkability}
+
+The \ac{IND-CCA} secure cryptosystem only protects the code.
+There are other data (meta-data) in the database which is related to the 
+plaintext.
+We would also like to hide that relationship, i.e.\ unlink the identifier from 
+the ciphertext of the password.
+
+\begin{definition}[Unlinkability]
+  \dots
+\end{definition}
 
 \subsubsection{Deniability}
 
@@ -51,9 +77,21 @@ way of verifying that the master password is wrong.
 We want the passwords to maintain their lengths, or more generally, we want the 
 passwords to maintain their password policy.
 
-\subsubsection{Verifiability and integrity}
+Deniability under key-disclosure attack \dots
+
+\begin{definition}[DEN-KDA]
+  \dots
+\end{definition}
+
+\subsubsection{Integrity}
+
+Alice also wants integrity.
+She wants to detect if someone has modified the database.
+
+\subsubsection{Verifiability}
 
 Alice should be able to verify that the master password is correct without 
 preventing deniability, i.e.\ leaking any information about the correctness of 
 the master password.
 She wants this feature to detect if she entered the master password wrongly.
+
